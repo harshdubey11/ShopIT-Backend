@@ -12,9 +12,14 @@ exports.createProduct = async (req, res) => {
 };
 
 exports.fetchAllProducts = async (req, res) => {
+  let condition = {};
+  if (!req.query.admin) {
+    condition.deleted = { $ne: true };
+  }
+
   //two same queries : as one executes for getting count.
-  let query = Product.find({});
-  let totalProductsQuery = Product.find({});
+  let query = Product.find(condition);
+  let totalProductsQuery = Product.find(condition);
   //order of 'if' ladder matters here.
   if (req.query.category) {
     query = query.find({ category: req.query.category });

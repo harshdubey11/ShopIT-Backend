@@ -10,6 +10,7 @@ const brandRouter = require("./routes/Brand");
 const userRouter = require("./routes/User");
 const authRouter = require("./routes/Auth");
 const cartRouter = require("./routes/Cart");
+const orderRouter = require("./routes/Order");
 server.use(express.json()); //middleware to parse req.body
 server.use(
   cors({
@@ -32,9 +33,10 @@ async function main() {
 }
 
 //Routes
+server.use("/users", userRouter.router);
+server.use("/auth", authRouter.router);
 server.use("/products", productRouter.router);
 server.use("/categories", categoryRouter.router);
 server.use("/brands", brandRouter.router);
-server.use("/users", userRouter.router);
-server.use("/auth", authRouter.router);
 server.use("/cart", cartRouter.router);
+server.use("/orders", orderRouter.router);
